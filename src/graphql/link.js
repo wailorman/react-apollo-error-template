@@ -1,6 +1,6 @@
 import { graphql, print } from "graphql";
 import { ApolloLink, Observable } from "apollo-link";
-import { schema } from "./schema";
+import schema from "./schema";
 
 export const link = new ApolloLink(operation => {
   return new Observable(observer => {

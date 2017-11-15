@@ -1,33 +1,59 @@
-import {
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLID,
-  GraphQLString,
-  GraphQLList,
-} from 'graphql';
+const { makeExecutableSchema } = require('graphql-tools');
+const gql = require('graphql-tag');
 
-const PersonType = new GraphQLObjectType({
-  name: 'Person',
-  fields: {
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-  },
-});
+// DATABASE
+let users = [{
+  id: 123,
+  login: 'wailorman'
+}];
 
-const peopleData = [
-  { id: 1, name: 'John Smith' },
-  { id: 2, name: 'Sara Smith' },
-  { id: 3, name: 'Budd Deey' },
-];
+const types = gql`
+  type User {
+    id: ID!
+    login: String
+  }
 
-const QueryType = new GraphQLObjectType({
-  name: 'Query',
-  fields: {
-    people: {
-      type: new GraphQLList(PersonType),
-      resolve: () => peopleData,
+  input UserInput {
+    login: String
+  }
+
+  type Query {
+    user(id: ID!): User
+  }
+
+  type Mutation {
+    updateUser(id: ID!, input: UserInput): User
+  }
+`
+
+const resolvers = {
+  Query: {
+    user: (obj, args) => {
+      return users.find((user) => user.id == args.id);
     },
   },
+  Mutation: {
+    updateUser: (obj, args) => {
+      users = users.map((user) => {
+        if (user.id == args.id) {
+          return {
+            ...user,
+            ...args.input
+          };
+        } else {
+          return user;
+        }
+      });
+
+      return users.find((user) => user.id == args.id);
+    }
+  }
+};
+
+let schema = makeExecutableSchema({
+  typeDefs: types,
+  resolvers: resolvers,
 });
 
-export const schema = new GraphQLSchema({ query: QueryType });
+
+module.exports = schema;
