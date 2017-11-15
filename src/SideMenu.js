@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { graphql, withApollo, compose } from "react-apollo";
+import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 
 
@@ -22,10 +22,6 @@ class SideMenu extends React.Component {
   static defaultProps = {
 
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log(

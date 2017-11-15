@@ -1,11 +1,12 @@
 {
   "private": true,
-  "name": "apollo-client-error-template",
+  "name": "write-fragment-error",
   "version": "0.1.0",
   "devDependencies": {
     "gh-pages": "^1.0.0",
     "react-scripts": "1.0.16"
   },
+  "homepage" : "http://wailorman.github.io/write-fragment-error",
   "dependencies": {
     "apollo-cache-inmemory": "^1.0.0",
     "apollo-client": "^2.0.1",
@@ -24,6 +25,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "deploy": "PUBLIC_URL=/react-apollo-error-template/$(git symbolic-ref --short HEAD) npm run build && gh-pages-clean && gh-pages -d build --dest $(git symbolic-ref --short HEAD) --remote"
+    "deploy": "PUBLIC_URL=/write-fragment-error/$(git symbolic-ref --short HEAD) npm run build && gh-pages-clean && gh-pages -d build --dest $(git symbolic-ref --short HEAD) --remote"
   }
 }
